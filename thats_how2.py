@@ -24,13 +24,20 @@ cpus = [
 ]
 
 
-#state
+#state conditions
 if 'Motherboard' not in st.session_state:
     st.session_state['Motherboard'] = 0
 if 'Cpu' not in st.session_state:
     st.session_state['Cpu'] = 0
+
+
+#state output
 if 'problempower' not in st.session_state:
     st.session_state['problempower'] = ''
+if 'connection' not in st.session_state:
+    st.session_state['connection'] = ''
+
+
 
 st.title("Motherboard and CPU Comparison")
 
