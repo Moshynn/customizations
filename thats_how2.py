@@ -6,9 +6,10 @@ class Motherboard:
         self.connection = connection
 
 class CPU:
-    def __init__(self, power, connection):
+    def __init__(self, power, connection , cooling):
         self.power = power
         self.connection = connection
+        self.cooling = cooling
 
 # Creating three objects per class
 motherboards = [
@@ -18,9 +19,9 @@ motherboards = [
 ]
 
 cpus = [
-    CPU(power=500, connection='Socket A'),
-    CPU(power=1000, connection='Socket B'),
-    CPU(power=750, connection='Socket C')
+    CPU(power=500, connection='Socket A',cooling = 'big'),
+    CPU(power=1000, connection='Socket B',cooling = 'little'),
+    CPU(power=750, connection='Socket C',cooling = 'little')
 ]
 
 
@@ -37,7 +38,7 @@ if 'problempower' not in st.session_state:
 if 'connection' not in st.session_state:
     st.session_state['connection'] = ''
 
-
+#----------------------------------------------------------------
 
 st.title("Motherboard and CPU Comparison")
 
@@ -54,9 +55,13 @@ for i, motherboard in enumerate(motherboards):
         if motherboard.power == cpus[i].power:
             st.subheader("power Result: OK")
         else:
-            st.subheader("power Result: Not OK")
+            st.subheader("power Result: no")
 
-moth = st.session_state['Motherboard']
+
+#show problems       
+st.title(st.session_state['problempower']) 
+
+motherboardNumber = st.session_state['Motherboard']
 
 
 # Displaying buttons for CPUs
@@ -68,11 +73,17 @@ for i, cpu in enumerate(cpus):
         st.session_state['Cpu'] = i
 
         # Checking if power values are the same
-        if cpu.power == motherboards[moth].power:
+        if cpu.power == motherboards[motherboardNumber].power:
             st.subheader("power Result: OK")
         else:
             st.subheader("power Result: Not OK")
 
+        if cpu.connection == motherboards[motherboardNumber].connection:
+            st.subheader("connection Result: OK")
+        else:
+            st.subheader("connection Result: Not OK")
 
-st.subheader(f"CPU problems found:{st.session_state['problempower']}")
+# st.subheader(f"CPU problems found:{st.session_state['problempower']}")
+# st.subheader(f"CPU problems found:{st.session_state['connection']}")
+
 st.write(st.session_state['Motherboard'])
